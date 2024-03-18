@@ -17,7 +17,7 @@ function WebWrite() {
   h1_button.addEventListener('click', () => {
     let h1_text = document.createElement('h1');
     h1_text.addEventListener('keydown', (e) => {
-      if(e.key == 'Backspace' && p_text.innerHTML == '') {
+      if(e.key == 'Backspace' && h1_text.innerHTML == '') {
         h1_text.remove();
       }
     });

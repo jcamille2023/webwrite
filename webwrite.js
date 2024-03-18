@@ -1,4 +1,4 @@
-function WebWrite() {
+export function WebWrite() {
   let container = document.createElement("div");
   container.id = "webwritecontainer";
   container.style.border = "2px solid black";

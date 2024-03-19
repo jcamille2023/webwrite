@@ -20,3 +20,5 @@ To use it, import WebWrite as an ES6 module.
 ```
 import {WebWrite} from 'https://jcamille2023.github.io/webwrite/webwrite.js'
 ```
+
+It is highly recommended that **code created by WebWrite is filtered and removes potentially dangerous elements like <iframe>**. 

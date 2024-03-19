@@ -11,7 +11,7 @@ let elements = WebWrite();
 container.appendChild(elements[0]);
 
 function submit() {
-  let data = elements[1].value;
+  let data = elements[1].innerHTML;
 
 // .. Whatever action is then performed with the data.
 }

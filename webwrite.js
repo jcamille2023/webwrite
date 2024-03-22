@@ -40,6 +40,11 @@ export function WebWrite() {
     text_container.appendChild(p_text);
   });
   option_buttons.appendChild(p_button);
+  // add a change text-alignment button
+
+  // add an increase font size button
+
+  // ofc add picture support
 
   return [container, text_container];
 }

@@ -80,5 +80,8 @@ export default class WebWrite {
     appendToContainer(element) {
         this.container.appendChild(element);
     }
+    addNewButton(button) {
+        this.options.appendChild(button);
+    }
     
 }

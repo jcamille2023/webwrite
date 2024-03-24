@@ -1,4 +1,4 @@
-export default class WebWrite {
+export class WebWrite {
     
     constructor() {
         let container = document.createElement("div");

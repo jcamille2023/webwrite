@@ -55,11 +55,19 @@ export class WebWrite {
             let img_container = document.createElement('div');
             img_container.style.position = "absolute";
             img_container.style.padding = "33%";
+            img_container.style.backgroundColor = "white";
+            img_container.style.color = "black";
+            img_container.style.top = "0";
+            img_container.style.width = '100%';
+            
 
             let title = document.createElement('p');
             title.textContent = 'Add an image';
             img_container.appendChild(title);
 
+            let info = document.createElement('p');
+            info.textContent = "Enter the URL to an image";
+            img_container.appendChild(info);
             let src_input = document.createElement('input');
             src_input.type = 'text';
             img_container.appendChild(src_input);
@@ -70,8 +78,13 @@ export class WebWrite {
                 let img_src = src_input.value;
                 let img = document.createElement('img');
                 img.src = img_src;
-                this.container.appendChild(img);
+                this.content.appendChild(img);
             });
+            let cancel_button = document.createElement("button");
+            cancel_button.textContent = 'Cancel';
+            cancel_button.addEventListener('click', () => {img_container.remove()});
+            img_container.appendChild(submit_button);
+            img_container.appendChild(cancel_button);
             document.body.appendChild(img_container);
 
         });

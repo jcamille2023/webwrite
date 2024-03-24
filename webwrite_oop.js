@@ -80,6 +80,7 @@ export class WebWrite {
                 let img = document.createElement('img');
                 img.src = img_src;
                 this.text_container.appendChild(img);
+                img_container.remove();
             });
             let cancel_button = document.createElement("button");
             cancel_button.textContent = 'Cancel';

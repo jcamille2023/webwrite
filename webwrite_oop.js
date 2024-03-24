@@ -1,5 +1,4 @@
 export class WebWrite {
-    
     constructor() {
         let container = document.createElement("div");
         container.id = "webwritecontainer";
@@ -73,12 +72,13 @@ export class WebWrite {
                 img.src = img_src;
                 this.container.appendChild(img);
             });
+            document.body.appendChild(img_container);
 
         });
         this.options.appendChild(img_btn);
     }
-    appendToContainer(element) {
-        this.container.appendChild(element);
+    appendToContent(element) {
+        this.content.appendChild(element);
     }
     addNewButton(button) {
         this.options.appendChild(button);

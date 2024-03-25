@@ -46,7 +46,7 @@ export class WebWrite {
         // add an increase font size button
         this.container = container;
         this.text_container = text_container;
-        this.content = text_container.innerHTML;
+        
         this.options = option_buttons;
     }
     enableImages() {
@@ -91,6 +91,9 @@ export class WebWrite {
 
         });
         this.options.appendChild(img_btn);
+    }
+    content() {
+        return this.text_container.innerHTML;
     }
     appendToContent(element) {
         this.text_container.appendChild(element);

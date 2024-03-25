@@ -93,6 +93,10 @@ export class WebWrite {
         this.options.appendChild(img_btn);
     }
     content() {
+        let children = this.text_container.children;
+        for(let child of children) {
+            child.setAttribute('contenteditable','false');
+        }
         return this.text_container.innerHTML;
     }
     appendToContent(element) {

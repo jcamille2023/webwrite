@@ -30,19 +30,51 @@ export class WebWrite {
         let p_button = document.createElement("button");
         p_button.appendChild(document.createTextNode('Paragraph'));
         p_button.addEventListener('click', () => {
-            let p_text = document.createElement('p');
-            p_text.addEventListener('keydown', (e) => {
-            if(e.key == 'Backspace' && p_text.innerHTML == '') {
-                p_text.remove();
+            if(typeof window.getSelection() == undefined) {
+                let p_text = document.createElement('p');
+                p_text.addEventListener('keydown', (e) => {
+                if(e.key == 'Backspace' && p_text.innerHTML == '') {
+                    p_text.remove();
+                }
+                });
+                p_text.appendChild(document.createTextNode('New paragraph'));
+                p_text.setAttribute('contenteditable', 'true');
             }
-            });
-            p_text.appendChild(document.createTextNode('New paragraph'));
-            p_text.setAttribute('contenteditable', 'true');
-            text_container.appendChild(p_text);
+            else {
+                let selection = window.getSelection();
+                let parent = selection.extentNode.parentElement;
+                if(parent.nodeName == "h1") {
+                    let parent_content = parent.textContent;
+                    parent_content.replace(selection.toString(),"");
+                    
+                    let p_text = document.createElement('p');
+                    p_text.addEventListener('keydown', (e) => {
+                    if(e.key == 'Backspace' && p_text.innerHTML == '') {
+                        p_text.remove();
+                    }
+                    });
+                    p_text.appendChild(document.createTextNode(selection.toString()));
+                    parent.textContent = parent_content;
+                    p_text.setAttribute('contenteditable', 'true');
+                    parent.insertBefore(p_text);
+                    if(parent.textContent == '') {
+                        parent.remove();
+                    }
+                }
+                    
+
+            }
+            
         });
         option_buttons.appendChild(p_button);
         // add a change text-alignment button
+        container.addEventListener('paste', (event) => {
+            let data = event.clipboardData;
+            let ele = document.createElement('p');
+            ele.textContent = data;
+            text_container.appendChild(ele);
 
+        });
         // add an increase font size button
         this.container = container;
         this.text_container = text_container;

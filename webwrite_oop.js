@@ -1,5 +1,6 @@
 export class WebWrite {
     constructor() {
+        let alignment = 'left';
         let container = document.createElement("div");
         container.id = "webwritecontainer";
         container.style.border = "2px solid black";
@@ -30,7 +31,8 @@ export class WebWrite {
         let p_button = document.createElement("button");
         p_button.appendChild(document.createTextNode('Paragraph'));
         p_button.addEventListener('click', () => {
-            if(typeof window.getSelection() == undefined) {
+            if(window.getSelection().toString() == '') {
+                console.log('No selection');
                 let p_text = document.createElement('p');
                 p_text.addEventListener('keydown', (e) => {
                 if(e.key == 'Backspace' && p_text.innerHTML == '') {
@@ -39,14 +41,18 @@ export class WebWrite {
                 });
                 p_text.appendChild(document.createTextNode('New paragraph'));
                 p_text.setAttribute('contenteditable', 'true');
+                text_container.appendChild(p_text);
             }
             else {
                 let selection = window.getSelection();
+                console.log(selection);
                 let parent = selection.extentNode.parentElement;
-                if(parent.nodeName == "h1") {
+                if(parent.nodeName == "H1") {
+                    console.log("replace text");
                     let parent_content = parent.textContent;
-                    parent_content.replace(selection.toString(),"");
-                    
+                    let string1 = selection.toString();
+                    parent_content = parent_content.replaceAll(string1,'');
+                    console.log(parent_content);
                     let p_text = document.createElement('p');
                     p_text.addEventListener('keydown', (e) => {
                     if(e.key == 'Backspace' && p_text.innerHTML == '') {
@@ -56,10 +62,11 @@ export class WebWrite {
                     p_text.appendChild(document.createTextNode(selection.toString()));
                     parent.textContent = parent_content;
                     p_text.setAttribute('contenteditable', 'true');
-                    parent.insertBefore(p_text);
+                    text_container.insertBefore(p_text,parent);
                     if(parent.textContent == '') {
                         parent.remove();
                     }
+                    text_container.appendChild(p_text);
                 }
                     
 
@@ -67,10 +74,13 @@ export class WebWrite {
             
         });
         option_buttons.appendChild(p_button);
+
+        
         // add a change text-alignment button
         container.addEventListener('paste', (event) => {
-            let data = event.clipboardData;
+            let data = event.clipboardData.getData("text");
             let ele = document.createElement('p');
+            ele.setAttribute('contenteditable','true');
             ele.textContent = data;
             text_container.appendChild(ele);
 
@@ -78,7 +88,7 @@ export class WebWrite {
         // add an increase font size button
         this.container = container;
         this.text_container = text_container;
-        
+        this.alignment = alignment;
         this.options = option_buttons;
     }
     enableImages() {
@@ -137,5 +147,14 @@ export class WebWrite {
     addNewButton(button) {
         this.options.appendChild(button);
     }
-    
+    alignText(alignment) {
+        if(window.getSelection().toString() != "") {
+            let selection = window.getSelection();
+            let parent = selection.extentNode.parentElement;
+            parent.style.textAlign = alignment;
+        }
+        else {
+            container.style.textAlign = alignment;
+        }
+    }    
 }

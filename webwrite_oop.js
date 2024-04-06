@@ -156,5 +156,49 @@ export class WebWrite {
         else {
             container.style.textAlign = alignment;
         }
+    }
+    importCode(code) {
+        this.text_container.innerHTML += code;
+        let children = this.text_container.children;
+        for(let child in children) {
+            child.setAttribute('contenteditable','true');
+            child.addEventListener('keydown', (e) => {
+                if(e.key == 'Backspace' && child.innerHTML == '') {
+                    child.remove();
+                }
+            });
+            if(child.nodeName == 'A') {
+                let link = child.getAttribute('href');
+                if(link != '') {
+                    child.addEventListener('mouseover', (e) => {
+                        let link_text = document.createElement('p');
+                        link_text.textContent = link;
+                        let action_detail = document.createElement('p');
+                        action_detail.textContent = 'Click to edit, CTRL+click to navigate';
+                        let container = document.createElement('container');
+                        container.setAttribute('class','linkhover');
+                        container.appendChild(link_text);
+                        container.appendChild(action_detail);
+                        container.style.position = 'absolute';
+
+                        container.style.top = e.clientX + 'px';
+                        container.style.left = e.clientY + 'px';
+
+                        let body = document.body;
+                        body.appendChild(container);
+                    });
+                    child.addEventListener('click', (e) => {
+                        if(e.ctrlKey) {
+                            window.open(href,"_blank");
+                        }
+                        else {
+                            let container = document.createElement('container');
+                            // will finish ltr...
+                        }
+                    });
+                }
+            }
+        }
+        
     }    
 }

@@ -157,16 +157,24 @@ export class WebWrite {
             container.style.textAlign = alignment;
         }
     }
-    importCode(code) {
-        this.text_container.innerHTML += code;
-        let children = this.text_container.children;
+    importCode(code, string) {
+        let new_item_container = document.createElement('div');
+        if(string == true) {
+           new_item_container.innerHTML += code;
+        }
+        else {
+            new_item_container.appendChild(code);
+        }
+        let children = new_item_container.children;
         for(let child in children) {
             child.setAttribute('contenteditable','true');
-            child.addEventListener('keydown', (e) => {
-                if(e.key == 'Backspace' && child.innerHTML == '') {
-                    child.remove();
-                }
-            });
+            if(child.nodeName == 'H1' || child.nodeName == 'P') {
+                child.addEventListener('keydown', (e) => {
+                    if(e.key == 'Backspace' && child.innerHTML == '') {
+                        child.remove();
+                    }
+                });
+            }
             if(child.nodeName == 'A') {
                 let link = child.getAttribute('href');
                 if(link != '') {
@@ -198,7 +206,9 @@ export class WebWrite {
                     });
                 }
             }
+            this.text_container.appendChild(child);
+            new_item_container.remove();
         }
         
-    }    
+    }
 }

@@ -6,7 +6,7 @@ WebWrite is made as a class with methods for allowing image input as well as ins
 Initialize WebWrite using the following line of code:
 ```
 let webwrite = new WebWrite();
-''
+```
 
 A WebWrite class has two properties: container and options.
 webwrite.container returns the HTML element the WebWrite container is stored in. This can be appended to
